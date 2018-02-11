@@ -86,7 +86,7 @@ div:nth-of-type(3) em {
 
 /*Make all "checked" checkboxes have a left margin of 50px(margin-left: 50px)*/
 
-:checked {
+input:checked {
     margin-left: 50px;
 }
 
