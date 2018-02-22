@@ -1,0 +1,33 @@
+{
+  "name": "webdevbootcamp",
+  "version": "1.0.0",
+  "description": "NPM packages for the web dev bootcamp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kpruehss/wdbc.git"
+  },
+  "author": "Karsten Pruehss",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kpruehss/wdbc/issues"
+  },
+  "homepage": "https://github.com/kpruehss/wdbc#readme",
+  "dependencies": {
+    "eslint": "^4.18.1",
+    "flow": "^0.2.3",
+    "prettier": "^1.10.2",
+    "tern": "^0.21.0"
+  },
+  "devDependencies": {
+    "eslint-config-google": "^0.9.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^6.0.0",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1"
+  }
+}
