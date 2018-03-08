@@ -1,5 +1,6 @@
 // Assign page elements
 const colorDisplay = document.getElementById('colorDisplay'),
+  h1 = document.querySelector('h1'),
   messageDisplay = document.querySelector('#message'),
   squares = document.querySelectorAll('.square');
 
@@ -86,18 +87,20 @@ const pickedColor = pickedColorFunc();
 // Adjust colorDisplay span element's text to the color string sought
 colorDisplay.textContent = colors[pickedColor];
 
-for (square in squares) {
+for (let i = 0; i < squares.length; i++) {
   // Add initial color to squares
-  squares[square].style.backgroundColor = colors[square];
+  squares[i].style.backgroundColor = colors[i];
+
   // Add event listener to each square
-  squares[square].addEventListener('click', function () {
+  squares[i].addEventListener('click', function clickEvent () {
     // Grab the color of clicked square
     const clickedColor = this.style.backgroundColor;
-    // Compare color to clickedColor
 
+    // Compare color to clickedColor
     if (clickedColor === colors[pickedColor]) {
       messageDisplay.textContent = 'Correct!';
       changeColors(clickedColor);
+      h1.style.backgroundColor = clickedColor;
     } else {
       this.style.backgroundColor = '#232323';
       messageDisplay.textContent = 'Try Again';
