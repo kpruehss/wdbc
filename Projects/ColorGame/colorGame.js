@@ -58,7 +58,7 @@ const generateRandomColors = function generateRandomColors (num) {
   const arr = [];
 
   // Repeat num times
-  for (let i = 0; i < num; i++) {
+  for (let index = 0; index < num; index++) {
     arr.push(randomColor());
   }
 
@@ -87,12 +87,12 @@ const pickedColor = pickedColorFunc();
 // Adjust colorDisplay span element's text to the color string sought
 colorDisplay.textContent = colors[pickedColor];
 
-for (let i = 0; i < squares.length; i++) {
+for (let index = 0; index < squares.length; index++) {
   // Add initial color to squares
-  squares[i].style.backgroundColor = colors[i];
+  squares[index].style.backgroundColor = colors[index];
 
   // Add event listener to each square
-  squares[i].addEventListener('click', function clickEvent () {
+  squares[index].addEventListener('click', function clickEvent () {
     // Grab the color of clicked square
     const clickedColor = this.style.backgroundColor;
 
