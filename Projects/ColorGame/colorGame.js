@@ -1,9 +1,14 @@
-// Assign page elements
-const colorDisplay = document.getElementById('colorDisplay'),
+// ----VARIABLE DEFINITIONS----
+const bodyBgColor = '#232324',
+  colorDisplay = document.getElementById('colorDisplay'),
   h1 = document.querySelector('h1'),
   messageDisplay = document.querySelector('#message'),
+  resetButton = document.querySelector('#reset'),
   squares = document.querySelectorAll('.square');
 
+// ----FUNCTION DEFINITIONS----
+
+// Change color of all squares to clickedColor when match is found
 const changeColors = function changeColors (color) {
 
   /*
@@ -22,6 +27,7 @@ const changeColors = function changeColors (color) {
   }
 };
 
+// Utility function to generate random color string
 const randomColor = function randomColor () {
 
   /*
@@ -39,9 +45,11 @@ const randomColor = function randomColor () {
   // Pick a "blue" from 0-255
   const blue = Math.floor(Math.random() * 256);
 
+  // Return interpolated string
   return `rgb(${red}, ${green}, ${blue})`;
 };
 
+// Generate array of random color strings
 const generateRandomColors = function generateRandomColors (num) {
 
   /*
@@ -57,7 +65,7 @@ const generateRandomColors = function generateRandomColors (num) {
   // Make array
   const arr = [];
 
-  // Repeat num times
+  // Repeat num times and push into array
   for (let index = 0; index < num; index++) {
     arr.push(randomColor());
   }
@@ -65,8 +73,24 @@ const generateRandomColors = function generateRandomColors (num) {
   return arr;
 };
 
-const colors = generateRandomColors(6);
+// Generate initial colors array for page-load
+let colors = generateRandomColors(6);
 
+// Utility function to assign colors to squares
+const assignColors = function assignColors () {
+
+  /*
+   * Arguments: None
+   * Returns: Void
+   *
+   * Assign color from 'color' array sequentially to each square in 'squares'
+   */
+  for (let index = 0; index < squares.length; index++) {
+    squares[index].style.backgroundColor = colors[index];
+  }
+};
+
+// Pick the color which is to be guessed from color array
 const pickedColorFunc = function pickedColorFunc () {
 
   /*
@@ -82,27 +106,49 @@ const pickedColorFunc = function pickedColorFunc () {
 };
 
 // Choose the color that has to be found
-const pickedColor = pickedColorFunc();
+let pickedColor = pickedColorFunc();
 
-// Adjust colorDisplay span element's text to the color string sought
+// Add resetButton functionality
+resetButton.addEventListener('click', () => {
+  // Generate new color array and assign to squares
+  colors = generateRandomColors(6);
+  assignColors();
+
+  // Reset header background color
+  h1.style.backgroundColor = bodyBgColor;
+
+  // Reset messageDisplay text
+  messageDisplay.textContent = '';
+
+  // Pick a new color to guess
+  pickedColor = pickedColorFunc();
+
+  // Reset colorDisplay to match picked color
+  colorDisplay.textContent = colors[pickedColor];
+});
+
+// ----CORE GAME LOGIC----
+
+// Adjust colorDisplay span element's text to the color string to be found
 colorDisplay.textContent = colors[pickedColor];
 
 for (let index = 0; index < squares.length; index++) {
   // Add initial color to squares
-  squares[index].style.backgroundColor = colors[index];
+  assignColors();
+  // Squares[index].style.backgroundColor = colors[index];
 
   // Add event listener to each square
   squares[index].addEventListener('click', function clickEvent () {
     // Grab the color of clicked square
     const clickedColor = this.style.backgroundColor;
 
-    // Compare color to clickedColor
+    // Compare clickedColor to pickedColor
     if (clickedColor === colors[pickedColor]) {
       messageDisplay.textContent = 'Correct!';
       changeColors(clickedColor);
       h1.style.backgroundColor = clickedColor;
     } else {
-      this.style.backgroundColor = '#232323';
+      this.style.backgroundColor = bodyBgColor;
       messageDisplay.textContent = 'Try Again';
     }
   });
