@@ -1,3 +1,14 @@
+const changeColors = function changeColors (color) {
+    // Loop through all squares
+    for (square of squares) {
+      square.style.backgroundColor = color;
+    }
+  },
+  pickedColorFunc = function pickedColorFunc () {
+    const random = Math.floor(Math.random() * colors.length);
+
+    return random;
+  };
 let colors = [
     'rgb(255, 0, 0)',
     'rgb(255, 255, 0)',
@@ -6,20 +17,13 @@ let colors = [
     'rgb(0, 0, 255)',
     'rgb(255, 0, 255)'
   ],
-  pickedColor = colors[3];
-
-const changeColors = function changeColors (color) {
-  // Loop through all squares
-  for (square of squares) {
-    square.style.backgroundColor = color;
-  }
-};
+  pickedColor = pickedColorFunc();
 
 const colorDisplay = document.getElementById('colorDisplay'),
   messageDisplay = document.querySelector('#message'),
   squares = document.querySelectorAll('.square');
 
-colorDisplay.textContent = pickedColor;
+colorDisplay.textContent = colors[pickedColor];
 
 for (square in squares) {
   // Add initial color to squares
@@ -30,7 +34,7 @@ for (square in squares) {
     const clickedColor = this.style.backgroundColor;
     // Compare color to clickedColor
 
-    if (clickedColor === pickedColor) {
+    if (clickedColor === colors[pickedColor]) {
       messageDisplay.textContent = 'Correct!';
       changeColors(clickedColor);
     } else {
