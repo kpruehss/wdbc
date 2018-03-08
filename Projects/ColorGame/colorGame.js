@@ -14,13 +14,13 @@ const colorDisplay = document.getElementById('colorDisplay'),
  */
 const randomColor = function randomColor () {
   // Pick a "red" from 0-255
-  const r = Math.floor(Math.random() * 256);
+  const red = Math.floor(Math.random() * 256);
   // Pick a "green" from 0-255
-  const g = Math.floor(Math.random() * 256);
+  const green = Math.floor(Math.random() * 256);
   // Pick a "blue" from 0-255
-  const b = Math.floor(Math.random() * 256);
+  const blue = Math.floor(Math.random() * 256);
 
-  return `rgb(${r},${g},${b})`;
+  return `rgb(${red},${green},${blue})`;
 };
 const changeColors = function changeColors (color) {
     // Loop through all squares
@@ -36,7 +36,7 @@ const changeColors = function changeColors (color) {
     for (let i = 0; i < num; i++) {
       arr.push(randomColor());
     }
-    // Return the array
+
     return arr;
   };
 
