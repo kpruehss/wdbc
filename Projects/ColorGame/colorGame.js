@@ -113,7 +113,7 @@ const updateColorDisplay = function updateColorDisplay (color) {
   colorDisplay.textContent = colors[color];
 };
 
-// Pick the color which is to be guessed from color array
+// Utility Function to pick the color which is to be guessed from color array
 const pickColor = function pickColor () {
 
   /*
@@ -131,8 +131,7 @@ const pickColor = function pickColor () {
 // Choose the color that has to be found
 let pickedColor = pickColor();
 
-// Add resetButton functionality
-resetButton.addEventListener('click', () => {
+const reset = function reset () {
   // Generate new color array and assign to squares
   if (easyBtn.classList.contains('selected')) {
     colors = generateRandomColors(3);
@@ -153,6 +152,11 @@ resetButton.addEventListener('click', () => {
 
   // Reset colorDisplay to match picked color
   updateColorDisplay(pickedColor);
+};
+
+// Add resetButton functionality
+resetButton.addEventListener('click', () => {
+  reset();
 });
 
 // Add easyBtn functionality
