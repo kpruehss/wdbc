@@ -89,8 +89,11 @@ const assignColors = function assignColors () {
    */
 
   for (let index = 0; index < squares.length; index++) {
+    // If-statement used to set display property for 3 or 6 squares
     if (colors[index]) {
       squares[index].style.backgroundColor = colors[index];
+
+      // Set squares to block  to unhide after switching from easy-mode
       squares[index].style.display = 'block';
     } else {
       squares[index].style.display = 'none';
@@ -139,10 +142,11 @@ resetButton.addEventListener('click', () => {
   assignColors();
 
   // Reset header background color
-  h1.style.backgroundColor = bodyBgColor;
+  h1.style.backgroundColor = 'steelblue';
 
-  // Reset messageDisplay text
+  // Reset messageDisplay and resetBtn text
   messageDisplay.textContent = '';
+  resetButton.textContent = 'New Colors';
 
   // Pick a new color to guess
   pickedColor = pickColor();
@@ -156,6 +160,7 @@ easyBtn.addEventListener('click', () => {
   // Add 'selected' class to the button tag for styling
   easyBtn.classList.add('selected');
   hardBtn.classList.remove('selected');
+  resetButton.textContent = 'New Colors';
 
   // Generate a new color array containing 3 colors, pick color and update
   colors = generateRandomColors(3);
@@ -169,6 +174,7 @@ hardBtn.addEventListener('click', () => {
   // Add 'selected' class to the button tag for styling
   easyBtn.classList.remove('selected');
   hardBtn.classList.add('selected');
+  resetButton.textContent = 'New Colors';
 
   // Generate a new color array containing 6 colors, pick color and update
   colors = generateRandomColors(6);
@@ -197,6 +203,7 @@ for (let index = 0; index < squares.length; index++) {
       messageDisplay.textContent = 'Correct!';
       changeColors(clickedColor);
       h1.style.backgroundColor = clickedColor;
+      resetButton.textContent = 'Play Again?';
     } else {
       this.style.backgroundColor = bodyBgColor;
       messageDisplay.textContent = 'Try Again';
