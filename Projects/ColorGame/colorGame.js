@@ -1,7 +1,9 @@
 // ----VARIABLE DEFINITIONS----
 const bodyBgColor = '#232324',
   colorDisplay = document.getElementById('colorDisplay'),
+  easyBtn = document.querySelector('#easyBtn'),
   h1 = document.querySelector('h1'),
+  hardBtn = document.querySelector('#hardBtn'),
   messageDisplay = document.querySelector('#message'),
   resetButton = document.querySelector('#reset'),
   squares = document.querySelectorAll('.square');
@@ -90,8 +92,20 @@ const assignColors = function assignColors () {
   }
 };
 
+// Utility function to update colorDisplay.textContent
+const updateColorDisplay = function updateColorDisplay (color) {
+
+  /*
+   * Arguments: Number (index position)
+   * Returns: Void
+   *
+   * Update span colorDisplay with rgb string from colors array at passed index
+   */
+  colorDisplay.textContent = colors[color];
+};
+
 // Pick the color which is to be guessed from color array
-const pickedColorFunc = function pickedColorFunc () {
+const pickColor = function pickColor () {
 
   /*
    * Arguments: None
@@ -106,12 +120,16 @@ const pickedColorFunc = function pickedColorFunc () {
 };
 
 // Choose the color that has to be found
-let pickedColor = pickedColorFunc();
+let pickedColor = pickColor();
 
 // Add resetButton functionality
 resetButton.addEventListener('click', () => {
   // Generate new color array and assign to squares
-  colors = generateRandomColors(6);
+  if (easyBtn.classList.contains('selected')) {
+    colors = generateRandomColors(3);
+  } else {
+    colors = generateRandomColors(6);
+  }
   assignColors();
 
   // Reset header background color
@@ -121,16 +139,45 @@ resetButton.addEventListener('click', () => {
   messageDisplay.textContent = '';
 
   // Pick a new color to guess
-  pickedColor = pickedColorFunc();
+  pickedColor = pickColor();
 
   // Reset colorDisplay to match picked color
-  colorDisplay.textContent = colors[pickedColor];
+  updateColorDisplay(pickedColor);
+  // ColorDisplay.textContent = colors[pickedColor];
 });
 
+// Add easyBtn functionality
+easyBtn.addEventListener('click', () => {
+  // Add 'selected' class to the button tag for styling
+  easyBtn.classList.add('selected');
+  hardBtn.classList.remove('selected');
+
+  // Generate a new color array containing 3 colors, pick color and update
+  colors = generateRandomColors(3);
+  pickedColor = pickColor();
+  updateColorDisplay(pickedColor);
+
+  // Hide bottom 3 color squares
+  for (let index = 0; index < squares.length; index++) {
+    if (colors[index]) {
+      squares[index].style.backgroundColor = colors[index];
+    } else {
+      squares[index].style.display = 'none';
+    }
+  }
+});
+
+// Add hardBtn functionality
+hardBtn.addEventListener('click', () => {
+  // Add 'selected' class to the button tag for styling
+  hardBtn.classList.add('selected');
+  easyBtn.classList.remove('selected');
+});
 // ----CORE GAME LOGIC----
 
 // Adjust colorDisplay span element's text to the color string to be found
-colorDisplay.textContent = colors[pickedColor];
+updateColorDisplay(pickedColor);
+// ColorDisplay.textContent = colors[pickedColor];
 
 for (let index = 0; index < squares.length; index++) {
   // Add initial color to squares
