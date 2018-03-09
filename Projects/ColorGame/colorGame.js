@@ -87,8 +87,14 @@ const assignColors = function assignColors () {
    *
    * Assign color from 'color' array sequentially to each square in 'squares'
    */
+
   for (let index = 0; index < squares.length; index++) {
-    squares[index].style.backgroundColor = colors[index];
+    if (colors[index]) {
+      squares[index].style.backgroundColor = colors[index];
+      squares[index].style.display = 'block';
+    } else {
+      squares[index].style.display = 'none';
+    }
   }
 };
 
@@ -143,7 +149,6 @@ resetButton.addEventListener('click', () => {
 
   // Reset colorDisplay to match picked color
   updateColorDisplay(pickedColor);
-  // ColorDisplay.textContent = colors[pickedColor];
 });
 
 // Add easyBtn functionality
@@ -156,22 +161,20 @@ easyBtn.addEventListener('click', () => {
   colors = generateRandomColors(3);
   pickedColor = pickColor();
   updateColorDisplay(pickedColor);
-
-  // Hide bottom 3 color squares
-  for (let index = 0; index < squares.length; index++) {
-    if (colors[index]) {
-      squares[index].style.backgroundColor = colors[index];
-    } else {
-      squares[index].style.display = 'none';
-    }
-  }
+  assignColors();
 });
 
 // Add hardBtn functionality
 hardBtn.addEventListener('click', () => {
   // Add 'selected' class to the button tag for styling
-  hardBtn.classList.add('selected');
   easyBtn.classList.remove('selected');
+  hardBtn.classList.add('selected');
+
+  // Generate a new color array containing 6 colors, pick color and update
+  colors = generateRandomColors(6);
+  pickedColor = pickColor();
+  updateColorDisplay(pickedColor);
+  assignColors();
 });
 // ----CORE GAME LOGIC----
 
