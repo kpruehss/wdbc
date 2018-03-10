@@ -218,8 +218,6 @@ hardBtn.addEventListener('click', () => {
   assignColors();
 });
 
-const init = function init () {};
-
 // ----CORE GAME LOOP----
 
 // Adjust colorDisplay span element's text to the color string to be found
