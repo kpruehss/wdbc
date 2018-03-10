@@ -195,6 +195,7 @@ easyBtn.addEventListener('click', () => {
   // Add 'selected' class to the button tag for styling
   easyBtn.classList.add('selected');
   hardBtn.classList.remove('selected');
+  messageDisplay.textContent = '';
   resetButton.textContent = 'New Colors';
 
   // Generate a new color array containing 3 colors, pick color and update
@@ -209,6 +210,7 @@ hardBtn.addEventListener('click', () => {
   // Add 'selected' class to the button tag for styling
   easyBtn.classList.remove('selected');
   hardBtn.classList.add('selected');
+  messageDisplay.textContent = '';
   resetButton.textContent = 'New Colors';
 
   // Generate a new color array containing 6 colors, pick color and update
