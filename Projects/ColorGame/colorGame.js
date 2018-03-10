@@ -131,7 +131,17 @@ const pickColor = function pickColor () {
 // Choose the color that has to be found
 let pickedColor = pickColor();
 
+// Utility Function to reset game state
 const reset = function reset () {
+
+  /*
+   * Arguments: None
+   * Returns: Void
+   *
+   * Reset game board when color found or when new mode is selected,
+   * regenerate 'colors' array and pick a new color. Update text displays
+   * to match.
+   */
   // Generate new color array and assign to squares
   if (easyBtn.classList.contains('selected')) {
     colors = generateRandomColors(3);
@@ -159,7 +169,28 @@ resetButton.addEventListener('click', () => {
   reset();
 });
 
+// Utility function to assign eventListeners to 'squares'
+const addSquareEventListener = function addSquareEventListener (index) {
+  squares[index].addEventListener('click', () => {
+    const clickedColor = squares[index].style.backgroundColor;
+
+    // Compare clickedColor to pickedColor
+    if (clickedColor === colors[pickedColor]) {
+      messageDisplay.textContent = 'Correct!';
+      // Change colors of all squares and headers to match
+      changeColors(clickedColor);
+      h1.style.backgroundColor = clickedColor;
+      // Adjust reset button text
+      resetButton.textContent = 'Play Again?';
+    } else {
+      // Hide clicked square and adjust messageDisplay
+      squares[index].style.backgroundColor = bodyBgColor;
+      messageDisplay.textContent = 'Try Again';
+    }
+  });
+};
 // Add easyBtn functionality
+
 easyBtn.addEventListener('click', () => {
   // Add 'selected' class to the button tag for styling
   easyBtn.classList.add('selected');
@@ -187,23 +218,7 @@ hardBtn.addEventListener('click', () => {
   assignColors();
 });
 
-const addSquareEventListener = function addSquareEventListener (index) {
-  squares[index].addEventListener('click', () => {
-    const clickedColor = squares[index].style.backgroundColor;
-
-    // Compare clickedColor to pickedColor
-    if (clickedColor === colors[pickedColor]) {
-      messageDisplay.textContent = 'Correct!';
-      changeColors(clickedColor);
-      h1.style.backgroundColor = clickedColor;
-      resetButton.textContent = 'Play Again?';
-    } else {
-      squares[index].style.backgroundColor = bodyBgColor;
-      messageDisplay.textContent = 'Try Again';
-    }
-  });
-};
-// ----CORE GAME LOGIC----
+// ----CORE GAME LOOP----
 
 // Adjust colorDisplay span element's text to the color string to be found
 updateColorDisplay(pickedColor);
