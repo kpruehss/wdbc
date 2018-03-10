@@ -186,6 +186,23 @@ hardBtn.addEventListener('click', () => {
   updateColorDisplay(pickedColor);
   assignColors();
 });
+
+const addSquareEventListener = function addSquareEventListener (index) {
+  squares[index].addEventListener('click', () => {
+    const clickedColor = squares[index].style.backgroundColor;
+
+    // Compare clickedColor to pickedColor
+    if (clickedColor === colors[pickedColor]) {
+      messageDisplay.textContent = 'Correct!';
+      changeColors(clickedColor);
+      h1.style.backgroundColor = clickedColor;
+      resetButton.textContent = 'Play Again?';
+    } else {
+      squares[index].style.backgroundColor = bodyBgColor;
+      messageDisplay.textContent = 'Try Again';
+    }
+  });
+};
 // ----CORE GAME LOGIC----
 
 // Adjust colorDisplay span element's text to the color string to be found
@@ -198,19 +215,6 @@ for (let index = 0; index < squares.length; index++) {
   // Squares[index].style.backgroundColor = colors[index];
 
   // Add event listener to each square
-  squares[index].addEventListener('click', function clickEvent () {
-    // Grab the color of clicked square
-    const clickedColor = this.style.backgroundColor;
-
-    // Compare clickedColor to pickedColor
-    if (clickedColor === colors[pickedColor]) {
-      messageDisplay.textContent = 'Correct!';
-      changeColors(clickedColor);
-      h1.style.backgroundColor = clickedColor;
-      resetButton.textContent = 'Play Again?';
-    } else {
-      this.style.backgroundColor = bodyBgColor;
-      messageDisplay.textContent = 'Try Again';
-    }
-  });
+  squares[index] = addSquareEventListener(index);
+  // Grab the color of clicked square
 }
